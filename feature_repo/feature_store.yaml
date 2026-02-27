@@ -1,0 +1,12 @@
+project: fraud_detection
+registry: registry.db
+provider: local
+
+online_store:
+  type: redis
+  connection_string: "${REDIS_HOST:-localhost}:${REDIS_PORT:-6379}"
+
+offline_store:
+  type: file
+
+entity_key_serialization_version: 2
