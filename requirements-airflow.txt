@@ -1,0 +1,15 @@
+# Extra pip packages installed inside the Airflow containers on top of the
+# official apache/airflow:2.9.1 image (which already ships Airflow itself).
+# Mount or COPY this file into the Airflow image if you need extra packages.
+
+mlflow==2.13.0
+scikit-learn==1.5.0
+xgboost==2.0.3
+pandas==2.2.2
+psycopg2-binary==2.9.9
+boto3==1.34.69
+
+# ── Spark + Delta Lake (for Airflow PythonOperator batch jobs) ────────────────
+pyspark==3.5.3
+delta-spark==3.2.0
+redis==5.0.4
