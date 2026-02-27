@@ -127,16 +127,14 @@ def fraud_model_retraining() -> None:
     def promote_model(train_result: dict) -> None:
         """Promote the new model to Production in MLflow if AUC improved."""
         import os
-        from mlflow.tracking import MlflowClient
+        import mlflow
 
-        client = MlflowClient(
-            tracking_uri=os.environ.get("MLFLOW_TRACKING_URI", "http://mlflow:5000")
-        )
+        mlflow.set_tracking_uri(os.environ.get("MLFLOW_TRACKING_URI", "http://mlflow:5000"))
         model_name = os.environ.get("MLFLOW_MODEL_NAME", "fraud-classifier")
         auc_threshold = float(Variable.get("min_roc_auc_for_promotion", default_var="0.90"))
 
         if train_result["roc_auc"] >= auc_threshold:
-            client.register_model(
+            mlflow.register_model(
                 f"runs:/{train_result['run_id']}/model", model_name
             )
 
